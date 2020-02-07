@@ -7,6 +7,7 @@ dat_dlmo <- read_excel("raw/ht_melatonin.xlsx") %>%
 dat_dlmo <- read_excel("raw/ht_ttst.xlsx") %>% 
   left_join(dat_dlmo, by =c("id","study_day"))
 
+#Export heat-map to pdf (use 30" x 30" for viewing) - filter by id to select individual plots
 ggplot(dat_dlmo %>% 
          filter(study_day %in% c(0:14)) %>%
          mutate(group = recode(group, "1" = "Luigi", "2" = "Mario")) %>% 
