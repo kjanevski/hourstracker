@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1581090860241.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2373937992",
+    "id" : "7A9F4610",
+    "lastKnownWriteTime" : 1581030249,
+    "last_content_update" : 1581030249,
+    "path" : "S:/Med_Data/SLEEP/Odo/Studies/Stephanie Studies/WES/Study 2/Analysis/Hours Tracker/KJ Analysis/hourstracker/scripts/exploratory-analysis.R",
+    "project_path" : "scripts/exploratory-analysis.R",
+    "properties" : {
+        "cursorPosition" : "13,0",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
