@@ -11,3 +11,6 @@ dat %>% filter(!complete.cases(screen_mins)) %>%
 
 
 ggplot(dat, aes(x = entry_adj, fill = factor(activity))) + geom_bar()
+
+
+
