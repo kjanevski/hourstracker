@@ -1,0 +1,159 @@
+---
+title: '2/10/20 '
+output: html_notebook
+---
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, warning=FALSE, message=FALSE)
+```
+
+Activites
+```{r}
+par(mar=c(6,4,4,2))
+with(dat %>% 
+    mutate(activity = recode(activity, "0" = "Bed",
+                                   "1" = "TV",
+                                   "2" = "Phone",
+                                   "3" = "HW",
+                                   "4" = "Eating",
+                                   "5" = "Hygiene",
+                                   "6" = "Socializing",
+                                   "7" = "Sports",
+                                   "8" = "Social Media",
+                                   "9" = "Computer",
+                                   "10" = "Commuting",
+                                   "11" = "Chores",
+                                   "12" = "Work",
+                                   "13" = "Shopping",
+                                   "14" = "Nap",
+                                   "15" = "Other",
+                                   "16" = "Video Games",
+                                   "999" = "Download")) %>% 
+  group_by(activity) %>% 
+  summarise(n = n()),
+  
+
+barplot(n ~ activity, las = 2, xlab = ""))
+
+
+with(dat %>% 
+    mutate(activity = recode(activity, "0" = "Bed",
+                                   "1" = "TV",
+                                   "2" = "Phone",
+                                   "3" = "HW",
+                                   "4" = "Eating",
+                                   "5" = "Hygiene",
+                                   "6" = "Socializing",
+                                   "7" = "Sports",
+                                   "8" = "Social Media",
+                                   "9" = "Computer",
+                                   "10" = "Commuting",
+                                   "11" = "Chores",
+                                   "12" = "Work",
+                                   "13" = "Shopping",
+                                   "14" = "Nap",
+                                   "15" = "Other",
+                                   "16" = "Video Games",
+                                   "999" = "Download")) %>% 
+  group_by(activity) %>% 
+  summarise(n = n()) %>% 
+  filter(activity != "Bed"),
+  
+
+barplot(n ~ activity, las = 2, xlab = ""))
+```
+
+Activities & Screen time
+```{r}
+par(mar=c(7,4,4,2))
+boxplot(screen_mins ~ activity, las =2, xlab ="", data = dat %>% 
+          mutate(activity = recode(activity, "0" = "In bed for night",
+                                   "1" = "TV",
+                                   "2" = "Phone",
+                                   "3" = "HW",
+                                   "4" = "Other",
+                                   "5" = "Other",
+                                   "6" = "Socializing",
+                                   "7" = "Other",
+                                   "8" = "Social Media",
+                                   "9" = "Computer",
+                                   "10" = "Commuting",
+                                   "11" = "Other",
+                                   "12" = "Other",
+                                   "13" = "Other",
+                                   "14" = "Nap",
+                                   "15" = "Other",
+                                   "16" = "Video Games",
+                                   "999" = "Download")))
+
+```
+
+Screen mins by Clock time
+```{r}
+boxplot(screen_mins ~ time, dat, las = 2)
+
+screen_fit1 <- lm(screen_mins ~ time, data = dat)
+summary(screen_fit1)
+```
+
+```{r}
+plot(jitter(screen_mins,5) ~ jitter(time), col=alpha(rgb(0,0,0), 0.1), xlab = "Time", ylab = "Screen Mins/60", data = dat)
+abline(screen_fit1)
+```
+```{r}
+plot(screen_fit1)
+
+hist(dat$screen_mins, breaks = 60)
+```
+
+
+Outcome: DLMO
+```{r}
+qplot(baseline_dlmo, fct_reorder(id,baseline_dlmo), aes(color = dlmo_group), data = dat_log)
+```
+
+```{r}
+ggplot(dat_dlmo %>% 
+         filter(id == "W98") %>% 
+         mutate(group = recode(group, "1" = "Luigi", "2" = "Mario")) %>% 
+         drop_na(), aes(factor(study_day), time, fill =  screen_mins)) +
+  geom_tile() +
+  geom_point(aes(y = ttst), color = "red" )+
+  geom_hline(aes(yintercept = baseline_dlmo))+
+  geom_text(aes(label = activity), size = 2)+
+  scale_y_continuous(minor_breaks = seq(15, 30, 1))+
+  coord_flip()+
+  facet_rep_wrap(~group + id, repeat.tick.labels = 'all')
+```
+
+DLMO Prediction Models
+```{r}
+fit1 <- lm(baseline_dlmo ~ screen_mins + activity, data = dat_dlmo)
+summary(fit1)
+
+
+fit2 <- lm(baseline_dlmo ~ screen_mins*time + activity*time, data = dat_dlmo)
+summary(fit2)
+
+plot(fit2)
+
+bt_fit3 <- lm(ttst ~ screen_mins*time + activity*time, data = dat_dlmo)
+summary(bt_fit3)
+
+
+```
+
+
+Logistic Model  
+  Ordered outcome (early,middle,late)  
+  Entries at DLMO hour until 2 hrs after dlmo  
+```{r}
+dat_log <- dat_dlmo
+dat_log$dlmo_group <-  cut(dat_dlmo$baseline_dlmo, b = c(17,20.357,21.3,27), labels = c("early","middle","late"))
+
+dat_log <- dat_log %>%
+  filter(dlmo_adj %in% c(0,1,2))
+
+log_model <- polr(dlmo_group ~ activity, data = dat_log)
+summary(log_model)
+```
+
