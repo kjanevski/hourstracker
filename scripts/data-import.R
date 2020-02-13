@@ -1,6 +1,5 @@
 library(readxl)
 library(tidyverse)
-library(MASS)
 
 select <- dplyr::select
 
@@ -51,4 +50,5 @@ dat_dlmo <- read_excel("raw/ht_ttst.xlsx") %>%
 
 #create "dlmo_adj"
 dat_dlmo <- dat_dlmo %>% 
-  mutate(dlmo_adj = time - floor(baseline_dlmo))
+  mutate(dlmo_adj = time - floor(baseline_dlmo)) %>% 
+  mutate(dlmo_group =  cut(baseline_dlmo, b = c(17,20.357,21.3,27), labels = c("early","middle","late")))

@@ -5,14 +5,14 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "227317676",
+    "hash" : "2642792713",
     "id" : "B67D8142",
-    "lastKnownWriteTime" : 1581364514,
-    "last_content_update" : 1581364514285,
+    "lastKnownWriteTime" : 1581553198,
+    "last_content_update" : 1581553197737,
     "path" : "S:/Med_Data/SLEEP/Odo/Studies/Stephanie Studies/WES/Study 2/Analysis/Hours Tracker/KJ Analysis/hourstracker/scripts/data-import.R",
     "project_path" : "scripts/data-import.R",
     "properties" : {
-        "cursorPosition" : "35,62",
+        "cursorPosition" : "54,0",
         "scrollLine" : "19"
     },
     "read_only" : false,

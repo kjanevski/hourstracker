@@ -1,0 +1,35 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+lou_groups <- dat_dlmo %>% 
+  drop_na(screen_mins) %>% 
+  mutate(screen_3 = cut(screen_mins, b = c(0,20,40,60), include.lowest = TRUE)) %>% 
+  mutate(screen_4 = cut(screen_mins, b = c(0,.1,29,59,60), include.lowest = TRUE))
+
+
+
+
+barplot(table(lou_groups$screen_3))
+barplot(table(lou_groups$screen_4))
+```
+
+```{r}
+table1 <- xtabs(~ dlmo_group + screen_3, data = lou_groups)
+prop.table(table1, margin = 1) %>% round(2)*100
+plot(prop.table(table1, margin = 1))
+
+
+table2 <- xtabs(~ dlmo_group + screen_4, data = lou_groups)
+prop.table(table2, margin = 1) %>% round(2)*100
+plot(prop.table(table2, margin = 1))
+```
+
+
+
