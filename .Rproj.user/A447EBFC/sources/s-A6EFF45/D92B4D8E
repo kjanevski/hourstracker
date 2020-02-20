@@ -1,0 +1,28 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1581525523408.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "D92B4D8E",
+    "lastKnownWriteTime" : 1582056929,
+    "last_content_update" : 1582056929273,
+    "path" : "S:/Med_Data/SLEEP/Odo/Studies/Stephanie Studies/WES/Study 2/Analysis/Hours Tracker/KJ Analysis/hourstracker/reports/crosstabs.Rmd",
+    "project_path" : "reports/crosstabs.Rmd",
+    "properties" : {
+        "chunk_output_type" : "inline",
+        "cursorPosition" : "20,0",
+        "scrollLine" : "0",
+        "source_window_id" : "",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}
